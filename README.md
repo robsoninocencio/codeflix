@@ -32,6 +32,11 @@ https://github.com/codeedu/laravel-microservice-quickstart/tree/course
 
 https://github.com/barryvdh/laravel-ide-helper
 
+### Outros Sites
+
+https://github.com/beyondcode/laravel-dump-server
+https://beyondco.de/docs/laravel-dump-server/installation
+
 ## Comandos
 
 ```
@@ -41,6 +46,12 @@ php artisan ide-helper:generate
 php artisan ide-helper:models
 composer require --dev doctrine/dbal:~2.3
 php artisan ide-helper:meta
+
+composer require --dev beyondcode/laravel-dump-server
+php artisan dump-server
+dd(\Request::getMethod());
+dump(\Request::getMethod());
+php artisan dump-server --format=html > dump.html
 
 
 ```
