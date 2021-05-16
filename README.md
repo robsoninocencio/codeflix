@@ -53,5 +53,16 @@ dd(\Request::getMethod());
 dump(\Request::getMethod());
 php artisan dump-server --format=html > dump.html
 
+php artisan make:model --help
+php artisan make:model Models/Category --all
+php artisan make:seeder CategoriesTableSeeder
+
+php artisan migrate --seed
+php artisan migrate:refresh --seed
+php artisan migrate:fresh --seed
+
+php artisan tinker
+\App\Models\Category::all();
+\App\Models\Category::find(5);
 
 ```
