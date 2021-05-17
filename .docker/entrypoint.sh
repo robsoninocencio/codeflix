@@ -4,6 +4,6 @@
 chown -R www-data:www-data .
 composer install
 php artisan key:generate
-php artisan migrate
+php artisan migrate --seed
 
 php-fpm

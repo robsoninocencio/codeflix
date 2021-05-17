@@ -69,4 +69,6 @@ php artisan tinker
 
 php artisan route:list
 
+php artisan make:request CategoryRequest
+
 ```

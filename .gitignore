@@ -14,7 +14,6 @@ yarn-error.log
 .idea/
 .vscode/
 .history/
-.devcontainer/
 _ide_helper_models.php
 _ide_helper.php
 .phpstorm.meta.php
