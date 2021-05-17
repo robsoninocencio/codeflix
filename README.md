@@ -71,4 +71,20 @@ php artisan route:list
 
 php artisan make:request CategoryRequest
 
+php artisan migrate:refresh --seed
+
+php artisan tinker
+use \App\Models\Category;
+Category::find(1)->delete();
+Category::find(1)    null
+Category::withTrashed()->find(1);
+Category::withTrashed()->get();
+Category::onlyTrashed()->find(1)->restore();
+Category::find(1)->forceDelete();
+
+
+
+
+
+
 ```
