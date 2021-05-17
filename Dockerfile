@@ -2,7 +2,6 @@ FROM php:7.3.6-fpm-alpine3.9
 
 RUN apk add --no-cache shadow openssl bash mysql-client nodejs npm git
 RUN docker-php-ext-install pdo pdo_mysql
-RUN apt-get update && apt-get install gnupg2 -y
 
 RUN touch /home/www-data/.bashrc | echo "PS1='\w\$ '" >> /home/www-data/.bashrc
 

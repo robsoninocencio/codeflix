@@ -82,7 +82,13 @@ Category::withTrashed()->get();
 Category::onlyTrashed()->find(1)->restore();
 Category::find(1)->forceDelete();
 
-
+use Ramsey\Uuid\Uuid;
+Uuid::uuid4();
+=> Ramsey\Uuid\Uuid {#4391
+     uuid: "dd40d795-b5e4-4315-804a-b2c89ec82a25",
+   }
+echo Uuid::uuid4();
+afc48249-e608-4099-bc7d-f94dea370192⏎
 
 
 
