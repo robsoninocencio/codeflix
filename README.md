@@ -36,6 +36,8 @@ https://github.com/barryvdh/laravel-ide-helper
 
 https://github.com/beyondcode/laravel-dump-server
 https://beyondco.de/docs/laravel-dump-server/installation
+https://www.postman.com/
+https://insomnia.rest/
 
 ## Comandos
 
@@ -64,5 +66,7 @@ php artisan migrate:fresh --seed
 php artisan tinker
 \App\Models\Category::all();
 \App\Models\Category::find(5);
+
+php artisan route:list
 
 ```
