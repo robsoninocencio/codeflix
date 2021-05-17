@@ -56,8 +56,14 @@ dump(\Request::getMethod());
 php artisan dump-server --format=html > dump.html
 
 php artisan make:model --help
+
 php artisan make:model Models/Category --all
 php artisan make:seeder CategoriesTableSeeder
+
+php artisan make:model Models/Genre --all
+php artisan make:seeder GenresTableSeeder
+
+
 
 php artisan migrate --seed
 php artisan migrate:refresh --seed
