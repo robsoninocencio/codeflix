@@ -111,4 +111,8 @@ vendor/bin/phpunit tests/Unit/Models/CategoryTest
 
 print_r(array_keys(class_uses(Category::class)));
 
+docker-compose exec app bash
+printenv
+
+
 ```
