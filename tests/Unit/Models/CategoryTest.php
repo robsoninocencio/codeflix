@@ -9,6 +9,33 @@ use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
+    private $category;
+
+    public static function setUpBeforeClass(): void
+    {
+        // dump('É executado apenas uma vez antes de todos os testes');
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // dump('É executado antes de cada test');
+        $this->category = new Category();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        // dump('É executado depois de cada test');
+        // code
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        // dump('É executado apenas uma vez depois de todos os testes');
+    }
+
+
     public function testIfUseTraits()
     {
         $traits = [
@@ -21,39 +48,33 @@ class CategoryTest extends TestCase
     public function testFillableAttribute()
     {
         $fillable = ['name', 'description', 'is_active'];
-        $category = new Category();
-        $this->assertEquals($fillable, $category->getFillable());
+        $this->assertEquals($fillable, $this->category->getFillable());
     }
 
     public function testDatesAttribute()
     {
         $dates = ['deleted_at', 'created_at', 'updated_at'];
-        $category = new Category();
-        $this->assertEquals($dates, $category->getDates());
+        $this->assertEquals($dates, $this->category->getDates());
 
         foreach ($dates as $date) {
-            $this->assertContains($date, $category->getDates());
+            $this->assertContains($date, $this->category->getDates());
         };
-        $this->assertCount(count($dates), $category->getDates());
+        $this->assertCount(count($dates), $this->category->getDates());
     }
 
     public function testCastsAttribute()
     {
         $casts = ['is_active' => 'boolean'];
-        $category = new Category();
-        $this->assertEquals($casts, $category->getCasts());
+        $this->assertEquals($casts, $this->category->getCasts());
     }
 
-    // public function testkeyType()
-    // {
-    //     $category = new Category();
-    //     print_r($category->keyType);
-    //     $this->assertEquals('string', $category->keyType);
-    // }
+    public function testkeyType()
+    {
+        $this->assertEquals('string', $this->category->getKeyType());
+    }
 
     public function testIncrementing()
     {
-        $category = new Category();
-        $this->assertFalse($category->incrementing);
+        $this->assertFalse($this->category->incrementing);
     }
 }
