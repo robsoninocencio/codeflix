@@ -29,8 +29,7 @@ https://github.com/codeedu/laravel-microservice-quickstart/tree/master
 ### Repositório final
 
 https://github.com/codeedu/laravel-microservice-quickstart/tree/course
-
-https://github.com/barryvdh/laravel-ide-helper
+https://github.com/robsoninocencio/backend-codeflix
 
 ### Outros Sites
 
@@ -38,6 +37,12 @@ https://github.com/beyondcode/laravel-dump-server
 https://beyondco.de/docs/laravel-dump-server/installation
 https://www.postman.com/
 https://insomnia.rest/
+https://github.com/barryvdh/laravel-ide-helper
+
+https://pt.wikipedia.org/wiki/Teste_de_software
+https://laravel.com/docs/6.x/testing
+https://phpunit.readthedocs.io/pt_BR/latest/
+https://docs.behat.org/en/latest/guides.html
 
 ## Comandos
 
@@ -96,7 +101,14 @@ Uuid::uuid4();
 echo Uuid::uuid4();
 afc48249-e608-4099-bc7d-f94dea370192⏎
 
+vendor/bin/phpunit
 
+php artisan make:test --help
+php artisan make:test Models/CategoryTest --unit
+vendor/bin/phpunit --filter CategoryTest
+vendor/bin/phpunit --filter CategoryTest::testExample
+vendor/bin/phpunit tests/Unit/Models/CategoryTest
 
+print_r(array_keys(class_uses(Category::class)));
 
 ```
