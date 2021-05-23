@@ -27,7 +27,6 @@ class CategoryTest extends TestCase
     {
         parent::tearDown();
         // dump('É executado depois de cada test');
-        // code
     }
 
     public static function tearDownAfterClass(): void

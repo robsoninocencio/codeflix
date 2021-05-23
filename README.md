@@ -114,5 +114,7 @@ print_r(array_keys(class_uses(Category::class)));
 docker-compose exec app bash
 printenv
 
+php artisan make:test Models/CategoryTest
+
 
 ```
