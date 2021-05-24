@@ -15,6 +15,7 @@ class CategoryTest extends TestCase
         factory(Category::class, 1)->create();
         $categories = Category::all();
         $this->assertCount(1, $categories);
+
         $categoryKey = array_keys($categories->first()->getAttributes());
         $this->assertEqualsCanonicalizing(
             ['id', 'name', 'description', 'is_active', 'created_at', 'updated_at', 'deleted_at'],
@@ -77,5 +78,24 @@ class CategoryTest extends TestCase
             $this->assertEquals($value, $category->{$key});
         }
         $this->assertTrue($category->is_active);
+    }
+
+    public function test_Delete()
+    {
+        /** @var Category $category */
+        $category = factory(Category::class)->create();
+        $this->assertNull($category->deleted_at);
+
+        $category->delete();
+
+        $this->assertNotNull($category->deleted_at);
+        $this->assertNull(Category::find($category->id));
+        $this->assertEquals(count(Category::all()), 0);
+
+        $this->assertNotNull(Category::withTrashed($category->id));
+
+        $category->restore();
+
+        $this->assertNotNull(Category::find($category->id));
     }
 }
