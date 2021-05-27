@@ -115,5 +115,7 @@ printenv
 
 php artisan make:test Models/CategoryTest
 
+php artisan make:test Http/Controllers/Api/CategoryControllerTest
+
 
 ```
