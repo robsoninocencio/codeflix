@@ -18,6 +18,9 @@ abstract class BasicCrudController extends Controller
     public function store(Request $request)
     {
         $validatedData = $this->validate($request, $this->rulesStore());
+        $obj = $this->model()::create($validatedData);
+        $obj->refresh();
+        return $obj;
     }
 
     // public function store(Request $request)
