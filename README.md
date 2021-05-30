@@ -82,6 +82,24 @@ php artisan make:test Models/VideoTest
 php artisan make:test Http/Controllers/Api/VideoControllerTest
 ```
 
+## Criando o relacionamento de video com category
+
+Quem vem primeiro em ordem alfabetica e no singular
+
+```
+php artisan make:migration create_category_video_table
+
+```
+
+## Criando o relacionamento de video com genre
+
+Quem vem primeiro em ordem alfabetica e no singular
+
+```
+php artisan make:migration create_genre_video_table
+
+```
+
 ## Comandos
 
 ```
