@@ -44,12 +44,14 @@ https://laravel.com/docs/6.x/testing
 https://phpunit.readthedocs.io/pt_BR/latest/
 https://docs.behat.org/en/latest/guides.html
 
-## Criando um Recurso
+## Criando um Recurso CastMember
 
+```
 php artisan make:model --all Models/CastMember
 
 php artisan make:seeder CastMembersTableSeeder
 
+php artisan migrate --seed
 php artisan migrate:fresh --seed
 
 php artisan route:list
@@ -59,6 +61,26 @@ php artisan make:test Models/CastMemberTest --unit
 php artisan make:test Models/CastMemberTest
 
 php artisan make:test Http/Controllers/Api/CastMemberControllerTest
+```
+
+## Criando um Recurso Video
+
+```
+php artisan make:model --all Models/Video
+
+php artisan make:seeder VideosTableSeeder
+
+php artisan migrate --seed
+php artisan migrate:fresh --seed
+
+php artisan route:list
+
+php artisan make:test Models/VideoUnitTest --unit
+
+php artisan make:test Models/VideoTest
+
+php artisan make:test Http/Controllers/Api/VideoControllerTest
+```
 
 ## Comandos
 
