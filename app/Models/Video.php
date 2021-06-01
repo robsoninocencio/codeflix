@@ -22,7 +22,7 @@ class Video extends Model
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
     protected $casts = [
         'opened' => 'boolean',
-        'year_launched' => 'Integer',
+        'year_launched' => 'integer',
         'duration' => 'integer'
     ];
     protected $keyType = 'string';

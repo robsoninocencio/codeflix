@@ -100,6 +100,15 @@ php artisan make:migration create_genre_video_table
 
 ```
 
+## Criando o relacionamento de category com genre
+
+Quem vem primeiro em ordem alfabetica e no singular
+
+```
+php artisan make:migration create_category_genre_table
+
+```
+
 ## Comandos
 
 ```
@@ -172,6 +181,8 @@ printenv
 php artisan make:test Models/CategoryTest
 
 php artisan make:test Http/Controllers/Api/CategoryControllerTest
+
+php artisan make:rule GenresHasCategoriesRule
 
 
 ```
