@@ -28,6 +28,41 @@ class Video extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    public static function create(array $attributes = [])
+    {
+        try {
+            \DB::beginTransaction();
+            $obj = static::query()->create($attributes);
+            // uploads aqui
+            \DB::commit();
+            return $obj;
+        } catch (\Exception $e) {
+            if (isset($obj)) {
+                // excluir os arquivos de uploads
+            }
+            \DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public function update(array $attributes = [], array $options = [])
+    {
+        try {
+            \DB::beginTransaction();
+            $saved = parent::update($attributes, $options);
+            if ($saved) {
+                // uploads aqui
+                // excluir os antigos
+            }
+            \DB::commit();
+            return $saved;
+        } catch (\Exception $e) {
+            // excluir os arquivos de uploads
+            \DB::rollBack();
+            throw $e;
+        }
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class)->withTrashed();
