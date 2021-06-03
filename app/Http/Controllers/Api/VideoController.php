@@ -24,7 +24,8 @@ class VideoController extends BasicCrudController
                 'required',
                 'array',
                 'exists:genres,id,deleted_at,NULL',
-            ]
+            ],
+            "video_file" => "required"
         ];
     }
 
