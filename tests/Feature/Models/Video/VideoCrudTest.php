@@ -1,45 +1,35 @@
 <?php
 
-namespace Tests\Feature\Models;
+namespace Tests\Feature\Models\Video;
 
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Video;
 use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
 
-class VideoTest extends TestCase
+class VideoCrudTest extends BaseVideoTestCase
 {
-    use DatabaseMigrations;
-
-    private $data;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->data = [
-            'title' => 'title',
-            'description' => 'description',
-            'year_launched' => 2010,
-            'rating' => Video::RATING_LIST[0],
-            'duration' => 90,
-        ];
-    }
-
     public function testList()
     {
         factory(Video::class)->create();
         $videos = Video::all();
         $this->assertCount(1, $videos);
-
-        $videoKey = array_keys($videos->first()->getAttributes());
+        $videoKeys = array_keys($videos->first()->getAttributes());
         $this->assertEqualsCanonicalizing(
             [
-                'id', 'title', 'description', 'year_launched', 'opened',
-                'rating', "duration", 'created_at', 'updated_at', 'deleted_at'
+                'id',
+                'title',
+                'description',
+                'year_launched',
+                'opened',
+                'rating',
+                'duration',
+                'video_file',
+                'created_at',
+                'updated_at',
+                'deleted_at'
             ],
-            $videoKey
+            $videoKeys
         );
     }
 
@@ -264,7 +254,6 @@ class VideoTest extends TestCase
     {
         /** @var Video $video */
         $video = factory(Video::class)->create();
-
         $this->assertNull($video->deleted_at);
 
         $video->delete();
