@@ -38,7 +38,9 @@ class VideoUnitTest extends TestCase
             'year_launched',
             'opened',
             'rating',
-            'duration'
+            'duration',
+            'video_file',
+            'thumb_file'
         ];
         $this->assertEquals($fillable, $this->video->getFillable());
     }
