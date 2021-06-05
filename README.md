@@ -44,6 +44,9 @@ https://laravel.com/docs/6.x/testing
 https://phpunit.readthedocs.io/pt_BR/latest/
 https://docs.behat.org/en/latest/guides.html
 
+https://www.php.net/manual/pt_BR/book.image.php
+https://www.php.net/manual/pt_BR/book.imagick.php
+
 ## Criando um Recurso CastMember
 
 ```
@@ -183,6 +186,10 @@ php artisan make:test Models/CategoryTest
 php artisan make:test Http/Controllers/Api/CategoryControllerTest
 
 php artisan make:rule GenresHasCategoriesRule
+
+docker-compose up -d --force-recreate --build
+
+php -m
 
 
 ```
