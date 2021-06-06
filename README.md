@@ -47,6 +47,10 @@ https://docs.behat.org/en/latest/guides.html
 https://www.php.net/manual/pt_BR/book.image.php
 https://www.php.net/manual/pt_BR/book.imagick.php
 
+https://storage.googleapis.com/codeflix-storage/Myfamily.png
+
+https://github.com/Superbalist/laravel-google-cloud-storage
+
 ## Criando um Recurso CastMember
 
 ```
@@ -191,5 +195,9 @@ docker-compose up -d --force-recreate --build
 
 php -m
 
+composer require superbalist/laravel-google-cloud-storage
+
+storage@backend-codeflix.iam.gserviceaccount.com
+114542174447744276625
 
 ```
