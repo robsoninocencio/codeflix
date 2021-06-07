@@ -1,11 +1,25 @@
 steps:
+  - id: "Gerando service-account-storage.json"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc
+      - --plaintext-file=./storage/credentials/google/service-account-storage.json
+      - --location=global
+      - --keyring=testing-lesson
+      - --key=service-account
+
   - id: "Rodando *** docker-compose"
     name: "docker/compose"
     args: ["-f", "docker-compose.prod.yaml", "up", "-d"]
-
-  - id: "Rodando docker ps"
-    name: "docker"
-    args: ["ps"]
+    env:
+      - GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID
+      - GOOGLE_CLOUD_KEY_FILE=service-account-storage.json
+      - GOOGLE_CLOUD_STORAGE_BUCKET=codeflix-storage
+      - GOOGLE_CLOUD_STORAGE_API_URI=https://storage.cloud.google.com/codeflix-storage
+      - TESTING_PROD=true
 
   - id: "Chown in /var/www"
     name: "docker"
