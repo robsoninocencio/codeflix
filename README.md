@@ -200,4 +200,20 @@ composer require superbalist/laravel-google-cloud-storage
 storage@backend-codeflix.iam.gserviceaccount.com
 114542174447744276625
 
+gcloud kms encrypt \
+--ciphertext-file=./storage/credentials/google/service-account-storage.json.enc \
+--plaintext-file=./storage/credentials/google/service-account-storage.json \
+--location=global \
+--keyring=testing-lesson \
+--key=service-account
+
+gcloud kms decrypt \
+--ciphertext-file=./storage/credentials/google/service-account-storage.json.enc \
+--plaintext-file=./storage/credentials/google/service-account-storage.json \
+--location=global \
+--keyring=testing-lesson \
+--key=service-account
+
+
+
 ```
