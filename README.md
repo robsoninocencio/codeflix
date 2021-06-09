@@ -224,5 +224,9 @@ $video->video_file_url
 
 https://laravel.com/docs/6.x/eloquent-resources#introduction
 
+php artisan make:resource CategoryResource
+php artisan make:resource CategoryCollection --collection
+
+
 
 ```

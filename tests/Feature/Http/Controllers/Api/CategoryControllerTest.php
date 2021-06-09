@@ -23,6 +23,7 @@ class CategoryControllerTest extends TestCase
     public function testIndex()
     {
         $response = $this->get(route('categories.index'));
+        // dd($response->content());
         $response
             ->assertStatus(200)
             ->assertJson(
@@ -33,6 +34,7 @@ class CategoryControllerTest extends TestCase
     public function testShow()
     {
         $response = $this->get(route('categories.show', ['category' => $this->category->id]));
+        // dd($response->content());
         $response
             ->assertStatus(200)
             ->assertJson(
