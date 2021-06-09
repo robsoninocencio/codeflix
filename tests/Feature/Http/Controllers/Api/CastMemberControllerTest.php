@@ -13,6 +13,14 @@ class CastMemberControllerTest extends TestCase
     use DatabaseMigrations, TestValidations, TestSaves;
 
     private $castMember;
+    private $serializedFields = [
+        'id',
+        'name',
+        'type',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     protected function setUp(): void
     {
@@ -72,7 +80,7 @@ class CastMemberControllerTest extends TestCase
                     ]
                 );
             $response->assertJsonStructure([
-                'created_at', 'updated_at'
+                'data' => $this->serializedFields
             ]);
         }
     }

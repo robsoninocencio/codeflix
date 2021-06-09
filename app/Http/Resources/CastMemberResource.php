@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class CastMemberResource extends JsonResource
 {
-    // public static $wrap = false; // Retirar o data do Json do resource
     /**
      * Transform the resource into an array.
      *
