@@ -222,6 +222,7 @@ $video->video_file_url
 => "http://localhost:8000/storage/videos/04476ec6-e222-4ad4-b68a-53ddc072cb87/U3P5eprOlNsdEZZLVWgnDZTpD6rIu3AbuQqPTQvW.mp4"
 
 
+https://laravel.com/docs/6.x/eloquent-resources#introduction
 
 
 ```
