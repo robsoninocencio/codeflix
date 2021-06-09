@@ -2,15 +2,17 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use Tests\Traits\TestResources;
 use Tests\Traits\TestSaves;
 use Tests\Traits\TestValidations;
 
 class CategoryControllerTest extends TestCase
 {
-    use DatabaseMigrations, TestValidations, TestSaves;
+    use DatabaseMigrations, TestValidations, TestSaves, TestResources;
 
     private $category;
     private $serializedFields = [
@@ -47,9 +49,13 @@ class CategoryControllerTest extends TestCase
         // dd($response->content());
         $response
             ->assertStatus(200)
-            ->assertJson(
-                $this->category->toArray()
-            );
+            ->assertJsonStructure([
+                'data' => $this->serializedFields
+            ]);
+
+        $id = $response->json('data.id');
+        $resource = new CategoryResource(Category::find($id));
+        $this->assertResource($response, $resource);
     }
 
     public function testInvalidationData()
@@ -88,13 +94,21 @@ class CategoryControllerTest extends TestCase
             $data,
             $data + ['description' => 'description', 'is_active' => false]
         );
+        $id = $response->json('data.id');
+        $resource = new CategoryResource(Category::find($id));
+        $this->assertResource($response, $resource);
     }
 
     public function testUpdate()
     {
         $data = ['name' => 'test', 'description' => 'test', 'is_active' => true];
         $response = $this->assertUpdate($data, $data + ['deleted_at' => null]);
-        $response->assertJsonStructure(['created_at', 'updated_at']);
+        $response->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);
+        $id = $response->json('data.id');
+        $resource = new CategoryResource(Category::find($id));
+        $this->assertResource($response, $resource);
 
         $data = ['name' => 'test', 'description' => ''];
         $this->assertUpdate($data, array_merge($data, ['description' => null]));
