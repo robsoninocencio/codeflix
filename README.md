@@ -211,8 +211,16 @@ gcloud kms decrypt \
 --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc \
 --plaintext-file=./storage/credentials/google/service-account-storage.json \
 --location=global \
+
 --keyring=testing-lesson \
 --key=service-account
+
+php artisan storage:link
+php artisan tinker
+$video = \App\Models\Video::first();
+$video->video_file_url
+=> "http://localhost:8000/storage/videos/04476ec6-e222-4ad4-b68a-53ddc072cb87/U3P5eprOlNsdEZZLVWgnDZTpD6rIu3AbuQqPTQvW.mp4"
+
 
 
 
