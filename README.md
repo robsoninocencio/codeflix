@@ -227,6 +227,24 @@ https://laravel.com/docs/6.x/eloquent-resources#introduction
 php artisan make:resource CategoryResource
 php artisan make:resource CategoryCollection --collection
 
+php artisan tinker
+
+---------------------------------
+$ref = new \ReflectionClass(\App\Http\Resources\CategoryResource::class);
+
+$ref->isSubclassOf(\Illuminate\Http\Resources\Json\ResourceCollection::class);
+
+false
+
+--------------------------------
+$ref = new \ReflectionClass(\App\Http\Resources\CategoryCollection::class);
+
+$ref->isSubclassOf(\Illuminate\Http\Resources\Json\ResourceCollection::class);
+
+true
+-------------------------------
+
+
 
 
 ```
