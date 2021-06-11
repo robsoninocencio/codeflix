@@ -244,7 +244,7 @@ $ref->isSubclassOf(\Illuminate\Http\Resources\Json\ResourceCollection::class);
 true
 -------------------------------
 
-
+dd($response->content());
 
 
 ```
