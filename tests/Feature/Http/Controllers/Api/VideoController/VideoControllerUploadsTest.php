@@ -104,7 +104,7 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
             ) + $newFiles
         );
 
-        $id = $response->json('id');
+        $id = $response->json('data.id');
         $video = Video::find($id);
         \Storage::assertMissing($video->relativeFilePath($files['video_file']->hashName()));
         \Storage::assertMissing($video->relativeFilePath($files['thumb_file']->hashName()));

@@ -14,7 +14,7 @@ class GenresTableSeeder extends Seeder
     public function run()
     {
         $categories = Category::all();
-        factory(\App\Models\Genre::class, 10)
+        factory(\App\Models\Genre::class, 46)
             ->create()
             ->each(function (Genre $genre) use ($categories) {
                 $categoriesId = $categories->random(5)->pluck('id')->toArray();

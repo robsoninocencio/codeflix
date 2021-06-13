@@ -38,6 +38,7 @@ class Video extends Model
     ];
     protected $keyType = 'string';
     public $incrementing = false;
+    protected $hidden = ['video_file', 'thumb_file', 'banner_file', 'trailer_file'];
     public static $fileFields = ['video_file', 'thumb_file', 'banner_file', 'trailer_file'];
 
     public static function create(array $attributes = [])

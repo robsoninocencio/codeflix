@@ -27,18 +27,18 @@ class VideosTableSeeder extends Seeder
         $self = $this;
         $this->allGenres = Genre::all();
         Model::reguard(); //mass assignment
-        factory(Video::class, 10)
+        factory(\App\Models\Video::class, 46)
             ->make()
             ->each(function (Video $video) use ($self) {
                 $self->fetchRelations();
-                Video::create(
+                \App\Models\Video::create(
                     array_merge(
                         $video->toArray(), //thumb_file, banner_file
                         [
+                            'video_file' => $self->getVideoFile(),
                             'thumb_file' => $self->getImageFile(),
                             'banner_file' => $self->getImageFile(),
                             'trailer_file' => $self->getVideoFile(),
-                            'video_file' => $self->getVideoFile(),
                         ],
                         $this->relations
                     )

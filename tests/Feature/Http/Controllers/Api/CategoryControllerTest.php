@@ -55,12 +55,12 @@ class CategoryControllerTest extends TestCase
     public function testShow()
     {
         $response = $this->get(route('categories.show', ['category' => $this->category->id]));
-        // dd($response->content());
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => $this->serializedFields
-            ]);
+            ])
+            ->assertJsonFragment($this->category->toArray());
 
         $id = $response->json('data.id');
         $resource = new CategoryResource(Category::find($id));

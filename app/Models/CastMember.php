@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CastMember extends Model
 {
-    use SoftDeletes, Traits\Uuid;
+    use SoftDeletes, Uuid;
 
     const TYPE_DIRECTOR = 1;
     const TYPE_ACTOR = 2;

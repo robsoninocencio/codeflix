@@ -6,6 +6,6 @@ class CastMembersTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(\App\Models\CastMember::class, 10)->create();
+        factory(\App\Models\CastMember::class, 46)->create();
     }
 }
