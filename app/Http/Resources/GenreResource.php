@@ -14,6 +14,8 @@ class GenreResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return parent::toArray($request) + [
+            'categories' => CategoryResource::collection($this->categories)
+        ];
     }
 }
