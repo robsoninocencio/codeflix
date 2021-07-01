@@ -9,6 +9,9 @@ services:
       ./.docker/entrypoint.sh
     ports:
       - "3000:3000"
+      - "35729:35729"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - .:/var/www
     networks:
