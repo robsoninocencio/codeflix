@@ -5,8 +5,8 @@ steps:
     args:
       - kms
       - decrypt
-      - --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc
-      - --plaintext-file=./storage/credentials/google/service-account-storage.json
+      - --ciphertext-file=./backend/storage/credentials/google/service-account-storage.json.enc
+      - --plaintext-file=./backend/storage/credentials/google/service-account-storage.json
       - --location=global
       - --keyring=testing-lesson
       - --key=service-account
@@ -38,11 +38,11 @@ steps:
 
   - id: "Rodando composer"
     name: "docker"
-    args: ["exec", "-t", "micro-videos-app", "composer", "install"]
+    args: ["exec", "-t", "micro-videos-app", "composer", "install", "-d", "/var/www/backend"]
 
   - id: "Copying .env"
     name: "docker"
-    args: ["exec", "-t", "micro-videos-app", "cp", ".env.example", ".env"]
+    args: ["exec", "-t", "micro-videos-app", "cp", "/var/www/backend/.env.example", "/var/www/backend/.env"]
 
   - id: "Copying .env.testing"
     name: "docker"
@@ -52,8 +52,8 @@ steps:
         "-t",
         "micro-videos-app",
         "cp",
-        ".env.testing.example",
-        ".env.testing",
+        "/var/www/backend/.env.testing.example",
+        "/var/www/backend/.env.testing",
       ]
 
   - id: "Running key:generate"
@@ -64,14 +64,14 @@ steps:
         "-t",
         "micro-videos-app",
         "php",
-        "/var/www/artisan",
+        "/var/www/backend/artisan",
         "key:generate",
       ]
 
   - id: "Running migrations"
     name: "docker"
     args:
-      ["exec", "-t", "micro-videos-app", "php", "/var/www/artisan", "migrate"]
+      ["exec", "-t", "micro-videos-app", "php", "/var/www/backend/artisan", "migrate"]
 
   - id: "Running Phpunit"
     name: "docker"
@@ -80,7 +80,7 @@ steps:
         "exec",
         "-t",
         "micro-videos-app",
-        "/var/www/vendor/bin/phpunit",
+        "/var/www/backend/vendor/bin/phpunit",
         "-c",
-        "/var/www/phpunit.xml",
+        "/var/www/backend/phpunit.xml",
       ]

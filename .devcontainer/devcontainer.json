@@ -37,7 +37,8 @@
         "redhat.vscode-yaml",
         "rexshi.phpdoc-comment-vscode-plugin",
         "visualstudioexptteam.vscodeintellicode",
-        "zxh404.vscode-proto3"
+        "zxh404.vscode-proto3",
+        "eamodio.gitlens"
     ]
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
