@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import logo from "../../static/img/logo.png";
+import MenuIcon from "@material-ui/icons/Menu";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import logo from "../../static/img/logo.png";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
@@ -26,6 +26,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Navbar: React.FC = () => {
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleOpen = (event: any) => setAnchorEl(event.currentTarget);
+  const open = Boolean(anchorEl);
+  const handleClose = () => setAnchorEl(null);
+
   return (
     <AppBar>
       <Toolbar className={classes.toolbar}>
@@ -35,11 +41,21 @@ const Navbar: React.FC = () => {
           aria-label="open drawer"
           aria-controls="menu-appbar"
           aria-haspopup="true"
+          onClick={handleOpen}
         >
           <MenuIcon />
         </IconButton>
-        <Menu id="menu-appbar" open={false}>
-          <MenuItem>Categorias</MenuItem>
+        <Menu
+          id="menu-appbar"
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          transformOrigin={{ vertical: "top", horizontal: "center" }}
+          getContentAnchorEl={null}
+        >
+          <MenuItem onClick={handleClose}>Categorias</MenuItem>
+          <MenuItem onClick={handleClose}>Gêneros</MenuItem>
         </Menu>
         <Typography className={classes.title}>
           <img src={logo} alt="CodeFlix" className={classes.logo} />
