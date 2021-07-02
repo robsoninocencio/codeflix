@@ -3,10 +3,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import logo from "../../static/img/logo.png";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
     backgroundColor: "#000000",
   },
@@ -14,7 +14,11 @@ const useStyles = makeStyles({
     flexGrow: 1,
     textAlign: "center",
   },
-});
+  logo: {
+    width: 100,
+    [theme.breakpoints.up("sm")]: { width: 170 },
+  },
+}));
 
 const Navbar: React.FC = () => {
   const classes = useStyles();
@@ -22,7 +26,7 @@ const Navbar: React.FC = () => {
     <AppBar>
       <Toolbar className={classes.toolbar}>
         <Typography className={classes.title}>
-          <img src={logo} alt="CodeFlix" />
+          <img src={logo} alt="CodeFlix" className={classes.logo} />
         </Typography>
         <Button color="inherit">Login</Button>
       </Toolbar>
