@@ -3,6 +3,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MuiMenu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
+import routes, { MyRouteProps } from "../../routers";
+import { Link } from "react-router-dom";
+
+const listRoutes = ["dashboard", "categories.list"];
+const menuRoutes = routes.filter((route) => listRoutes.includes(route.name));
 
 const Menu: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,8 +36,21 @@ const Menu: React.FC = () => {
         transformOrigin={{ vertical: "top", horizontal: "center" }}
         getContentAnchorEl={null}
       >
-        <MenuItem onClick={handleClose}>Categorias</MenuItem>
-        <MenuItem onClick={handleClose}>Gêneros</MenuItem>
+        {listRoutes.map((routeName, key) => {
+          const route = menuRoutes.find(
+            (route) => route.name === routeName
+          ) as MyRouteProps;
+          return (
+            <MenuItem
+              key={key}
+              component={Link}
+              to={route.path as string}
+              onClick={handleClose}
+            >
+              {route.label}
+            </MenuItem>
+          );
+        })}
       </MuiMenu>
     </>
   );
