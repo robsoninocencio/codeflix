@@ -1,14 +1,16 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Link, { LinkProps } from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
-import MuiBreadcrumbs from "@material-ui/core/Breadcrumbs";
+import { Location } from "history";
 import { Route } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
-import { Location } from "history";
-import routes from "../routers";
 import RouteParser from "route-parser";
-import { Container } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import MuiBreadcrumbs from "@material-ui/core/Breadcrumbs";
+import Typography from "@material-ui/core/Typography";
+import Link, { LinkProps } from "@material-ui/core/Link";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+
+import routes from "../routers";
 
 const breadcrumbNameMap: { [key: string]: string } = {};
 routes.forEach(
@@ -81,9 +83,11 @@ export default function Breadcrumbs() {
 
   return (
     <Container>
-      <Route>
-        {({ location }: { location: Location }) => makeBreadcrumb(location)}
-      </Route>
+      <Box paddingBottom={1}>
+        <Route>
+          {({ location }: { location: Location }) => makeBreadcrumb(location)}
+        </Route>
+      </Box>
     </Container>
   );
 }
