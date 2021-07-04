@@ -6,7 +6,12 @@ import IconButton from "@material-ui/core/IconButton";
 import routes, { MyRouteProps } from "../../routers";
 import { Link } from "react-router-dom";
 
-const listRoutes = ["dashboard", "categories.list"];
+const listRoutes = [
+  "dashboard",
+  "categories.list",
+  "cast_members.list",
+  "genres.list",
+];
 const menuRoutes = routes.filter((route) => listRoutes.includes(route.name));
 
 const Menu: React.FC = () => {
