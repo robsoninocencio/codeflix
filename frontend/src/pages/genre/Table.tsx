@@ -50,13 +50,7 @@ const Table = (props: Props) => {
   useEffect(() => {
     httpVideo.get("genres").then((response) => setData(response.data.data));
   }, []);
-  return (
-    <MUIDataTable
-      title="Listagem de gêneros"
-      columns={columnsDefinition}
-      data={data}
-    />
-  );
+  return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
 };
 
 export default Table;

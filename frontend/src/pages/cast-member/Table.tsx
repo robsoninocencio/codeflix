@@ -44,13 +44,7 @@ const Table = (props: Props) => {
       .get("cast_members")
       .then((response) => setData(response.data.data));
   }, []);
-  return (
-    <MUIDataTable
-      title="Listagem de membros"
-      columns={columnsDefinition}
-      data={data}
-    />
-  );
+  return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
 };
 
 export default Table;
