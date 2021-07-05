@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import Button, { ButtonProps } from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -21,9 +22,17 @@ export const Form = () => {
     className: classes.submit,
   };
 
+  const { register, getValues } = useForm();
+
   return (
     <form>
-      <TextField name="name" label="Nome" fullWidth variant="outlined" />
+      <TextField
+        name="name"
+        label="Nome"
+        fullWidth
+        variant="outlined"
+        inputRef={register}
+      />
       <TextField
         name="description"
         label="Descrição"
@@ -32,10 +41,14 @@ export const Form = () => {
         fullWidth
         variant="outlined"
         margin="normal"
+        inputRef={register}
       />
-      <Checkbox name="is_active" /> Ativo?
+      <Checkbox name="is_active" inputRef={register} />
+      Ativo?
       <Box dir="rtl">
-        <Button {...buttonProps}>Salvar</Button>
+        <Button {...buttonProps} onClick={() => console.log(getValues())}>
+          Salvar
+        </Button>
         <Button {...buttonProps} type="submit">
           Salvar e continuar editando
         </Button>
