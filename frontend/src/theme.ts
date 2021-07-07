@@ -15,11 +15,7 @@ const theme = createTheme({
     },
   },
   overrides: {
-    MuiFormLabel: {
-      root: {
-        fontSize: "1.2rem",
-      },
-    },
+    MUIDataTable: {},
   },
 });
 
