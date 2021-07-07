@@ -1,6 +1,6 @@
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { createTheme } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#79aec8",
@@ -9,6 +9,16 @@ const theme = createMuiTheme({
     secondary: {
       main: "#4db5ab",
       contrastText: "#fff",
+    },
+    background: {
+      default: "#fafafa",
+    },
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        fontSize: "1.2rem",
+      },
     },
   },
 });
