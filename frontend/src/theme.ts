@@ -1,21 +1,113 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core";
+import {
+  PaletteOptions,
+  SimplePaletteColorOptions,
+} from "@material-ui/core/styles/createPalette";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#79aec8",
-      contrastText: "#fff",
-    },
-    secondary: {
-      main: "#4db5ab",
-      contrastText: "#fff",
-    },
-    background: {
-      default: "#fafafa",
-    },
+const palette: PaletteOptions = {
+  primary: {
+    main: "#79aec8",
+    contrastText: "#fff",
   },
+  secondary: {
+    main: "#4db5ab",
+    contrastText: "#fff",
+    dark: "#055a52",
+  },
+  background: {
+    default: "#fafafa",
+  },
+};
+
+const theme = createMuiTheme({
+  palette,
   overrides: {
-    MUIDataTable: {},
+    MUIDataTable: {
+      paper: {
+        boxShadow: "none",
+      },
+    },
+    MUIDataTableToolbar: {
+      root: {
+        minHeight: "58px",
+        backgroundColor: palette!.background!.default,
+      },
+      icon: {
+        color: (palette!.primary as SimplePaletteColorOptions).main,
+        "&:hover, &:active, &.focus": {
+          color: (palette!.secondary as SimplePaletteColorOptions).dark,
+        },
+      },
+      iconActive: {
+        color: (palette!.secondary as SimplePaletteColorOptions).dark,
+        "&:hover, &:active, &.focus": {
+          color: (palette!.secondary as SimplePaletteColorOptions).dark,
+        },
+      },
+    },
+    MUIDataTableHeadCell: {
+      fixedHeaderCommon: {
+        paddingTop: 8,
+        paddingBottom: 8,
+        backgroundColor: (palette!.primary as SimplePaletteColorOptions).main,
+        color: "#ffffff",
+        "&[aria-sort]": {
+          backgroundColor: "#459ac4",
+        },
+      },
+      sortActive: {
+        color: "#fff",
+      },
+      sortAction: {
+        alignItems: "center",
+      },
+      sortLabelRoot: {
+        "& svg": {
+          color: "#fff !important",
+        },
+      },
+    },
+    MUIDataTableSelectCell: {
+      headerCell: {
+        backgroundColor: (palette!.primary as SimplePaletteColorOptions).main,
+        "& span": {
+          color: "#fff !important",
+        },
+      },
+    },
+    MUIDataTableBodyCell: {
+      root: {
+        color: (palette!.secondary as SimplePaletteColorOptions).main,
+        "&:hover, &:active, &.focus": {
+          color: (palette!.secondary as SimplePaletteColorOptions).main,
+        },
+      },
+    },
+    MUIDataTableToolbarSelect: {
+      title: {
+        color: (palette!.primary as SimplePaletteColorOptions).main,
+      },
+      iconButton: {
+        color: (palette!.primary as SimplePaletteColorOptions).main,
+      },
+    },
+    MUIDataTableBodyRow: {
+      root: {
+        "&:nth-child(odd)": {
+          backgroundColor: palette!.background!.default,
+        },
+      },
+    },
+    MUIDataTablePagination: {
+      root: {
+        color: (palette!.primary as SimplePaletteColorOptions).main,
+      },
+    },
+    MUIDataTableFilterList: {
+      root: {
+        marginBottom: "16px",
+      },
+    },
   },
 });
 
