@@ -25,7 +25,8 @@ export const Form = () => {
 
   const buttonProps: ButtonProps = {
     className: classes.submit,
-    variant: "outlined",
+    color: "secondary",
+    variant: "contained",
   };
 
   const { register, handleSubmit, getValues, setValue } = useForm();

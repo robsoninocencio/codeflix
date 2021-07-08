@@ -6,13 +6,15 @@ import IconButton from "@material-ui/core/IconButton";
 import routes, { MyRouteProps } from "../../routers";
 import { Link } from "react-router-dom";
 
-const listRoutes = [
-  "dashboard",
-  "categories.list",
-  "cast_members.list",
-  "genres.list",
-];
-const menuRoutes = routes.filter((route) => listRoutes.includes(route.name));
+const listRoutes = {
+  dashboard: "Dashboard",
+  "categories.list": "Categorias",
+  "cast_members.list": "Membros de elenco",
+  "genres.list": "Gêneros",
+};
+const menuRoutes = routes.filter((route) =>
+  Object.keys(listRoutes).includes(route.name)
+);
 
 const Menu: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,7 +43,7 @@ const Menu: React.FC = () => {
         transformOrigin={{ vertical: "top", horizontal: "center" }}
         getContentAnchorEl={null}
       >
-        {listRoutes.map((routeName, key) => {
+        {Object.keys(listRoutes).map((routeName, key) => {
           const route = menuRoutes.find(
             (route) => route.name === routeName
           ) as MyRouteProps;
@@ -52,7 +54,7 @@ const Menu: React.FC = () => {
               to={route.path as string}
               onClick={handleClose}
             >
-              {route.label}
+              {listRoutes[routeName]}
             </MenuItem>
           );
         })}
