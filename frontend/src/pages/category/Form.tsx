@@ -7,6 +7,12 @@ import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import categoryHttp from "../../util/http/category-http";
 
+interface ICategory {
+  name: string;
+  description: string;
+  is_active: boolean;
+}
+
 const useStyles = makeStyles((theme: Theme) => {
   return {
     submit: {
@@ -24,16 +30,18 @@ export const Form = () => {
     variant: "contained",
   };
 
-  const { register, handleSubmit, getValues } = useForm({
+  const { register, handleSubmit, getValues, errors } = useForm<ICategory>({
     defaultValues: {
       is_active: true,
     },
   });
+  console.log("errors = ", errors);
 
-  function onSubmit(formData, event) {
+  const onSubmit = (formData: ICategory, event: any) => {
     console.log("event = ", event);
+    console.log("data = ", formData);
     categoryHttp.create(formData).then((response) => console.log(response));
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,8 +50,26 @@ export const Form = () => {
         label="Nome"
         fullWidth
         variant="outlined"
-        inputRef={register}
+        inputRef={register({
+          required: true,
+          pattern: /^[A-Za-z]+$/i,
+          maxLength: {
+            value: 100,
+            message: "O máximo de caracteres aceito é 100",
+          },
+        })}
       />
+      {errors.name && errors.name.type === "required" && (
+        <span>O campo nome é requerido</span>
+      )}
+      {errors.name && errors.name.type === "pattern" && (
+        <span>O campo nome aceita somente letras maiúsculas e minúsculas</span>
+      )}
+      {errors.name && errors.name.type === "maxLength" && (
+        <p>
+          <span>{errors.name.message}</span>
+        </p>
+      )}
       <TextField
         name="description"
         label="Descrição"

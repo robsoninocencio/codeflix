@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createTheme } from "@material-ui/core";
 import { green, red } from "@material-ui/core/colors";
 import {
   PaletteOptions,
@@ -27,7 +27,7 @@ const palette: PaletteOptions = {
   },
 };
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette,
   overrides: {
     MUIDataTable: {
