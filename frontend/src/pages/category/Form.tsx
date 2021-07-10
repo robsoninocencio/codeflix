@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles, Theme } from "@material-ui/core";
+import { FormControlLabel, makeStyles, Theme } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Button, { ButtonProps } from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -37,7 +37,7 @@ export const Form = () => {
     variant: "contained",
   };
 
-  const { register, handleSubmit, getValues, errors, reset } =
+  const { register, handleSubmit, getValues, setValue, errors, reset, watch } =
     useForm<ICategory>({
       validationSchema,
       defaultValues: {
@@ -49,6 +49,10 @@ export const Form = () => {
   const { id } = useParams();
 
   const [category, setCategory] = useState<ICategory | null>(null);
+
+  useEffect(() => {
+    register({ name: "is_active" });
+  }, [register]);
 
   useEffect(() => {
     if (!id) {
@@ -93,13 +97,18 @@ export const Form = () => {
         inputRef={register}
         InputLabelProps={{ shrink: true }}
       />
-      <Checkbox
-        name="is_active"
-        color="primary"
-        inputRef={register}
-        defaultChecked
+      <FormControlLabel
+        control={
+          <Checkbox
+            name="is_active"
+            color="primary"
+            onChange={() => setValue("is_active", !getValues()["is_active"])}
+            checked={watch("is_active")}
+          />
+        }
+        label={"Ativo?"}
+        labelPlacement={"end"}
       />
-      Ativo?
       <Box dir="rtl">
         <Button
           color="primary"
