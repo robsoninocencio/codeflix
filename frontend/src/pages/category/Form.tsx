@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, Theme } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Button, { ButtonProps } from "@material-ui/core/Button";
@@ -7,8 +7,10 @@ import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import categoryHttp from "../../util/http/category-http";
 import * as yup from "../../util/vendor/yup";
+import { useParams } from "react-router";
 
 interface ICategory {
+  id: string;
   name: string;
   description: string;
   is_active: boolean;
@@ -35,18 +37,37 @@ export const Form = () => {
     variant: "contained",
   };
 
-  const { register, handleSubmit, getValues, errors } = useForm<ICategory>({
-    validationSchema,
-    defaultValues: {
-      is_active: true,
-    },
-  });
+  const { register, handleSubmit, getValues, errors, reset } =
+    useForm<ICategory>({
+      validationSchema,
+      defaultValues: {
+        is_active: true,
+      },
+    });
   console.log("errors = ", errors);
+
+  const { id } = useParams();
+
+  const [category, setCategory] = useState<ICategory | null>(null);
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    categoryHttp.get(id).then(({ data }) => {
+      setCategory(data.data);
+      reset(data.data);
+    });
+  }, []);
+  console.log("category =", category);
 
   const onSubmit = (formData: ICategory, event: any) => {
     console.log("event = ", event);
     console.log("data = ", formData);
-    categoryHttp.create(formData).then((response) => console.log(response));
+    const http = !category
+      ? categoryHttp.create(formData)
+      : categoryHttp.update(category.id, formData);
+    http.then((response) => console.log(response));
   };
 
   return (
@@ -59,6 +80,7 @@ export const Form = () => {
         inputRef={register}
         error={errors.name !== undefined}
         helperText={errors.name && errors.name.message}
+        InputLabelProps={{ shrink: true }}
       />
       <TextField
         name="description"
@@ -69,6 +91,7 @@ export const Form = () => {
         variant="outlined"
         margin="normal"
         inputRef={register}
+        InputLabelProps={{ shrink: true }}
       />
       <Checkbox
         name="is_active"
