@@ -31,12 +31,6 @@ const validationSchema = yup.object().shape({
 export const Form = () => {
   const classes = useStyles();
 
-  const buttonProps: ButtonProps = {
-    className: classes.submit,
-    color: "secondary",
-    variant: "contained",
-  };
-
   const { register, handleSubmit, getValues, setValue, errors, reset, watch } =
     useForm<ICategory>({
       validationSchema,
@@ -46,9 +40,17 @@ export const Form = () => {
     });
   console.log("errors = ", errors);
 
-  const { id } = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   const [category, setCategory] = useState<ICategory | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const buttonProps: ButtonProps = {
+    className: classes.submit,
+    color: "secondary",
+    variant: "contained",
+    disabled: loading,
+  };
 
   useEffect(() => {
     register({ name: "is_active" });
@@ -58,20 +60,27 @@ export const Form = () => {
     if (!id) {
       return;
     }
-    categoryHttp.get(id).then(({ data }) => {
-      setCategory(data.data);
-      reset(data.data);
-    });
+    setLoading(true);
+    categoryHttp
+      .get(id)
+      .then(({ data }) => {
+        setCategory(data.data);
+        reset(data.data);
+      })
+      .finally(() => setLoading(false));
   }, []);
   console.log("category =", category);
 
   const onSubmit = (formData: ICategory, event: any) => {
     console.log("event = ", event);
     console.log("data = ", formData);
+    setLoading(true);
     const http = !category
       ? categoryHttp.create(formData)
       : categoryHttp.update(category.id, formData);
-    http.then((response) => console.log(response));
+    http
+      .then((response) => console.log(response))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -82,6 +91,7 @@ export const Form = () => {
         fullWidth
         variant="outlined"
         inputRef={register}
+        disabled={loading}
         error={errors.name !== undefined}
         helperText={errors.name && errors.name.message}
         InputLabelProps={{ shrink: true }}
@@ -95,9 +105,11 @@ export const Form = () => {
         variant="outlined"
         margin="normal"
         inputRef={register}
+        disabled={loading}
         InputLabelProps={{ shrink: true }}
       />
       <FormControlLabel
+        disabled={loading}
         control={
           <Checkbox
             name="is_active"
