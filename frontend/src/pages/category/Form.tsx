@@ -6,7 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import categoryHttp from "../../util/http/category-http";
-import * as yup from "yup";
+import * as yup from "../../util/vendor/yup";
 
 interface ICategory {
   name: string;
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 const validationSchema = yup.object().shape({
-  name: yup.string().label("Nome").required(),
+  name: yup.string().label("Nome").required().max(255),
 });
 
 export const Form = () => {
@@ -56,7 +56,7 @@ export const Form = () => {
         label="Nome"
         fullWidth
         variant="outlined"
-        inputRef={register()}
+        inputRef={register}
         error={errors.name !== undefined}
         helperText={errors.name && errors.name.message}
       />
