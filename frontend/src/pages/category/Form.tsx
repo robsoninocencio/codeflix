@@ -6,6 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import categoryHttp from "../../util/http/category-http";
+import * as yup from "yup";
 
 interface ICategory {
   name: string;
@@ -21,6 +22,10 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
+const validationSchema = yup.object().shape({
+  name: yup.string().label("Nome").required(),
+});
+
 export const Form = () => {
   const classes = useStyles();
 
@@ -31,6 +36,7 @@ export const Form = () => {
   };
 
   const { register, handleSubmit, getValues, errors } = useForm<ICategory>({
+    validationSchema,
     defaultValues: {
       is_active: true,
     },
@@ -50,26 +56,10 @@ export const Form = () => {
         label="Nome"
         fullWidth
         variant="outlined"
-        inputRef={register({
-          required: true,
-          pattern: /^[A-Za-z]+$/i,
-          maxLength: {
-            value: 100,
-            message: "O máximo de caracteres aceito é 100",
-          },
-        })}
+        inputRef={register()}
+        error={errors.name !== undefined}
+        helperText={errors.name && errors.name.message}
       />
-      {errors.name && errors.name.type === "required" && (
-        <span>O campo nome é requerido</span>
-      )}
-      {errors.name && errors.name.type === "pattern" && (
-        <span>O campo nome aceita somente letras maiúsculas e minúsculas</span>
-      )}
-      {errors.name && errors.name.type === "maxLength" && (
-        <p>
-          <span>{errors.name.message}</span>
-        </p>
-      )}
       <TextField
         name="description"
         label="Descrição"
