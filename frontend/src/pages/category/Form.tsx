@@ -7,7 +7,8 @@ import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import categoryHttp from "../../util/http/category-http";
 import * as yup from "../../util/vendor/yup";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
+import { setTimeout } from "timers";
 
 interface ICategory {
   id: string;
@@ -38,8 +39,8 @@ export const Form = () => {
         is_active: true,
       },
     });
-  console.log("errors = ", errors);
 
+  const history = useHistory();
   const { id } = useParams<{ id?: string }>();
 
   const [category, setCategory] = useState<ICategory | null>(null);
@@ -69,17 +70,22 @@ export const Form = () => {
       })
       .finally(() => setLoading(false));
   }, []);
-  console.log("category =", category);
 
   const onSubmit = (formData: ICategory, event: any) => {
-    console.log("event = ", event);
-    console.log("data = ", formData);
     setLoading(true);
     const http = !category
       ? categoryHttp.create(formData)
       : categoryHttp.update(category.id, formData);
     http
-      .then((response) => console.log(response))
+      .then(({ data }) => {
+        setTimeout(() => {
+          event
+            ? id
+              ? history.replace(`/categories/${data.data.id}/edit`)
+              : history.push(`/categories/${data.data.id}/edit`)
+            : history.push("/categories");
+        }, 1000);
+      })
       .finally(() => setLoading(false));
   };
 
