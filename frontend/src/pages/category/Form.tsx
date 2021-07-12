@@ -6,9 +6,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
 import categoryHttp from "../../util/http/category-http";
-import * as yup from "../../util/vendor/yup";
+import yup from "../../util/vendor/yup";
 import { useParams, useHistory } from "react-router";
 import { setTimeout } from "timers";
+import { useSnackbar } from "notistack";
 
 interface ICategory {
   id: string;
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 const validationSchema = yup.object().shape({
-  name: yup.string().label("Nome").required().max(255),
+  name: yup.string().label("Nome").required().min(3).max(255),
+  is_active: yup.boolean(),
 });
 
 export const Form = () => {
@@ -36,10 +38,12 @@ export const Form = () => {
     useForm<ICategory>({
       validationSchema,
       defaultValues: {
+        name: "",
         is_active: true,
       },
     });
 
+  const snackbar = useSnackbar();
   const history = useHistory();
   const { id } = useParams<{ id?: string }>();
 
@@ -69,7 +73,7 @@ export const Form = () => {
         reset(data.data);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [id, reset]);
 
   const onSubmit = (formData: ICategory, event: any) => {
     setLoading(true);
@@ -78,6 +82,9 @@ export const Form = () => {
       : categoryHttp.update(category.id, formData);
     http
       .then(({ data }) => {
+        snackbar.enqueueSnackbar("Categoria salva com sucesso", {
+          variant: "success",
+        });
         setTimeout(() => {
           event
             ? id
@@ -85,6 +92,12 @@ export const Form = () => {
               : history.push(`/categories/${data.data.id}/edit`)
             : history.push("/categories");
         }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        snackbar.enqueueSnackbar("Não foi possível salvar a categoria", {
+          variant: "error",
+        });
       })
       .finally(() => setLoading(false));
   };

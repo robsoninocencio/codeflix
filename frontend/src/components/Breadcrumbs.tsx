@@ -10,7 +10,7 @@ import Link, { LinkProps } from "@material-ui/core/Link";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
-import routes from "../routers";
+import routes from "../routes";
 
 const breadcrumbNameMap: { [key: string]: string } = {};
 routes.forEach(

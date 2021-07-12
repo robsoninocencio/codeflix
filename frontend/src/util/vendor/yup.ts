@@ -1,17 +1,47 @@
-import { LocaleObject, setLocale } from "yup";
+import * as yup from "yup";
+import {
+  ArrayLocale,
+  BooleanLocale,
+  DateLocale,
+  MixedLocale,
+  NumberLocale,
+  ObjectLocale,
+  StringLocale,
+} from "yup/lib/locale";
+
+interface LocaleObject {
+  mixed?: MixedLocale;
+  string?: StringLocale;
+  number?: NumberLocale;
+  date?: DateLocale;
+  boolean?: BooleanLocale;
+  object?: ObjectLocale;
+  array?: ArrayLocale;
+}
 
 const ptBR: LocaleObject = {
+  array: {
+    // eslint-disable-next-line
+    max: "${path} não pode ter mais que ${max} itens",
+    // eslint-disable-next-line
+    min: "${path} não pode ter menos que ${min} itens",
+  },
   mixed: {
-    required: "${path} é requerido",
+    // eslint-disable-next-line
+    required: "${path} é obrigatório",
   },
   string: {
-    max: "${path} precisa ter no máximo ${max} caracteres",
+    // eslint-disable-next-line
+    max: "${path} não pode ter mais que ${max} caracteres",
+    // eslint-disable-next-line
+    min: "${path} não pode ter menos que ${min} caracteres",
   },
   number: {
-    min: "${path} precisa ser no mínimo ${min}",
+    // eslint-disable-next-line
+    min: "${path} não pode ser menor que ${max}",
   },
 };
 
-setLocale(ptBR);
+yup.setLocale(ptBR);
 
-export * from "yup";
+export default yup;

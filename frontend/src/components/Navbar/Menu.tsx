@@ -3,7 +3,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MuiMenu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
-import routes, { MyRouteProps } from "../../routers";
+import routes, { MyRouteProps } from "../../routes";
 import { Link } from "react-router-dom";
 
 const listRoutes = {
