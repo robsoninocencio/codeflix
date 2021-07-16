@@ -5,11 +5,14 @@ import {
 } from "notistack";
 import { IconButton, makeStyles, Theme } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+// import { cyan } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
     variantSuccess: {
       backgroundColor: theme.palette.success.main,
+      // backgroundColor: "#1b5e20",
+      // backgroundColor: cyan["500"],
     },
     variantError: {
       backgroundColor: theme.palette.error.main,
@@ -23,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => {
 export const SnackbarProvider: React.FC<SnackbarProviderProps> = (props) => {
   let snackbarProviderRef;
   const classes = useStyles();
+
   const defaultProps: SnackbarProviderProps = {
     ...props,
     classes,
@@ -44,6 +48,10 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = (props) => {
       </IconButton>
     ),
   };
+  // console.log("props = ", props);
+  // console.log("defaultProps = ", defaultProps);
+
+  // const newProps = { ...defaultProps, ...props };
 
   return (
     <NotistackProvider {...defaultProps}>{props.children}</NotistackProvider>

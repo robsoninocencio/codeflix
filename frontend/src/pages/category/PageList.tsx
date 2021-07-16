@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
 import Box from "@material-ui/core/Box";
 import Fab from "@material-ui/core/Fab";
-import Table from "./Table";
 
-import routes, { MyRouteProps } from "../../routes";
+import Table from "./Table";
 import { Page } from "../../components/Page";
+import routes, { MyRouteProps } from "../../routes";
 
 const PageList = () => {
   const route: MyRouteProps = routes.find(
     (route) => route.name === "categories.create"
   ) as MyRouteProps;
+
   return (
     <Page title="Listagem Categorias">
       <Box dir={"rtl"} paddingBottom={2}>

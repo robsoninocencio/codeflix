@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useHistory } from "react-router";
+import { useForm } from "react-hook-form";
 import { FormControlLabel, makeStyles, Theme } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Button, { ButtonProps } from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
-import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
+import { setTimeout } from "timers";
+
 import categoryHttp from "../../util/http/category-http";
 import yup from "../../util/vendor/yup";
-import { useParams, useHistory } from "react-router";
-import { setTimeout } from "timers";
-import { useSnackbar } from "notistack";
 
 interface ICategory {
   id: string;
@@ -28,12 +29,9 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const validationSchema = yup.object().shape({
   name: yup.string().label("Nome").required().min(3).max(255),
-  is_active: yup.boolean(),
 });
 
 export const Form = () => {
-  const classes = useStyles();
-
   const { register, handleSubmit, getValues, setValue, errors, reset, watch } =
     useForm<ICategory>({
       validationSchema,
@@ -43,10 +41,10 @@ export const Form = () => {
       },
     });
 
+  const classes = useStyles();
   const snackbar = useSnackbar();
   const history = useHistory();
   const { id } = useParams<{ id?: string }>();
-
   const [category, setCategory] = useState<ICategory | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -58,49 +56,75 @@ export const Form = () => {
   };
 
   useEffect(() => {
-    register({ name: "is_active" });
-  }, [register]);
-
-  useEffect(() => {
     if (!id) {
       return;
     }
-    setLoading(true);
-    categoryHttp
-      .get(id)
-      .then(({ data }) => {
+
+    async function getCategory() {
+      setLoading(true);
+      try {
+        const { data } = await categoryHttp.get(id);
         setCategory(data.data);
         reset(data.data);
-      })
-      .finally(() => setLoading(false));
-  }, [id, reset]);
-
-  const onSubmit = (formData: ICategory, event: any) => {
-    setLoading(true);
-    const http = !category
-      ? categoryHttp.create(formData)
-      : categoryHttp.update(category.id, formData);
-    http
-      .then(({ data }) => {
-        snackbar.enqueueSnackbar("Categoria salva com sucesso", {
-          variant: "success",
-        });
-        setTimeout(() => {
-          event
-            ? id
-              ? history.replace(`/categories/${data.data.id}/edit`)
-              : history.push(`/categories/${data.data.id}/edit`)
-            : history.push("/categories");
-        }, 1000);
-      })
-      .catch((error) => {
-        console.log(error);
-        snackbar.enqueueSnackbar("Não foi possível salvar a categoria", {
+      } catch (error) {
+        console.error(error);
+        snackbar.enqueueSnackbar("Não foi possível carregar as informações", {
           variant: "error",
         });
-      })
-      .finally(() => setLoading(false));
-  };
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getCategory();
+  }, [id, reset, snackbar]);
+
+  useEffect(() => {
+    register({ name: "is_active" });
+  }, [register]);
+
+  async function onSubmit(formData: ICategory, event: any) {
+    if (!formData.name) {
+      snackbar.enqueueSnackbar("Nome é obrigatório", { variant: "error" });
+      return;
+    }
+    if (formData.name.length < 3) {
+      snackbar.enqueueSnackbar("Nome não pode ter menos que 3 caracteres", {
+        variant: "error",
+      });
+      return;
+    }
+    if (formData.name.length > 255) {
+      snackbar.enqueueSnackbar("Nome não pode ter mais que 255 caracteres", {
+        variant: "error",
+      });
+      return;
+    }
+    setLoading(true);
+    try {
+      const http = !category
+        ? categoryHttp.create(formData)
+        : categoryHttp.update(category.id, formData);
+      const { data } = await http;
+      snackbar.enqueueSnackbar("Categoria salva com sucesso", {
+        variant: "success",
+      });
+      setTimeout(() => {
+        event
+          ? id
+            ? history.replace(`/categories/${data.data.id}/edit`)
+            : history.push(`/categories/${data.data.id}/edit`)
+          : history.push("/categories");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      snackbar.enqueueSnackbar("Não foi possível salvar a categoria", {
+        variant: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -140,10 +164,11 @@ export const Form = () => {
         label={"Ativo?"}
         labelPlacement={"end"}
       />
+
       <Box dir="rtl">
         <Button
-          color="primary"
           {...buttonProps}
+          color="primary"
           onClick={() => onSubmit(getValues(), null)}
         >
           Salvar

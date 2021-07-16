@@ -14,7 +14,7 @@ Microsserviço de catálogo
 $ docker-compose up
 ```
 
-#### Accesse no browser
+#### Acesse no browser
 
 ```
 http://localhost:8000
@@ -91,7 +91,7 @@ php artisan make:test Http/Controllers/Api/VideoControllerTest
 
 ## Criando o relacionamento de video com category
 
-Quem vem primeiro em ordem alfabetica e no singular
+Quem vem primeiro em ordem alfabética e no singular
 
 ```
 php artisan make:migration create_category_video_table
@@ -100,7 +100,7 @@ php artisan make:migration create_category_video_table
 
 ## Criando o relacionamento de video com genre
 
-Quem vem primeiro em ordem alfabetica e no singular
+Quem vem primeiro em ordem alfabética e no singular
 
 ```
 php artisan make:migration create_genre_video_table
@@ -109,7 +109,7 @@ php artisan make:migration create_genre_video_table
 
 ## Criando o relacionamento de category com genre
 
-Quem vem primeiro em ordem alfabetica e no singular
+Quem vem primeiro em ordem alfabética e no singular
 
 ```
 php artisan make:migration create_category_genre_table
@@ -214,6 +214,7 @@ gcloud kms decrypt \
 
 --keyring=testing-lesson \
 --key=service-account
+
 
 php artisan storage:link
 php artisan tinker

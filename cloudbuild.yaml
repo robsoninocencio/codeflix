@@ -17,8 +17,8 @@ steps:
     env:
       - GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID
       - GOOGLE_CLOUD_KEY_FILE=service-account-storage.json
-      - GOOGLE_CLOUD_STORAGE_BUCKET=codeflix-storage
-      - GOOGLE_CLOUD_STORAGE_API_URI=https://storage.cloud.google.com/codeflix-storage
+      - GOOGLE_CLOUD_STORAGE_BUCKET=codeflix-storage2
+      - GOOGLE_CLOUD_STORAGE_API_URI=https://storage.cloud.google.com/codeflix-storage2
       - TESTING_PROD=true
 
   - id: "Chown in /var/www"
@@ -38,11 +38,28 @@ steps:
 
   - id: "Rodando composer"
     name: "docker"
-    args: ["exec", "-t", "micro-videos-app", "composer", "install", "-d", "/var/www/backend"]
+    args:
+      [
+        "exec",
+        "-t",
+        "micro-videos-app",
+        "composer",
+        "install",
+        "-d",
+        "/var/www/backend",
+      ]
 
   - id: "Copying .env"
     name: "docker"
-    args: ["exec", "-t", "micro-videos-app", "cp", "/var/www/backend/.env.example", "/var/www/backend/.env"]
+    args:
+      [
+        "exec",
+        "-t",
+        "micro-videos-app",
+        "cp",
+        "/var/www/backend/.env.example",
+        "/var/www/backend/.env",
+      ]
 
   - id: "Copying .env.testing"
     name: "docker"
@@ -71,7 +88,14 @@ steps:
   - id: "Running migrations"
     name: "docker"
     args:
-      ["exec", "-t", "micro-videos-app", "php", "/var/www/backend/artisan", "migrate"]
+      [
+        "exec",
+        "-t",
+        "micro-videos-app",
+        "php",
+        "/var/www/backend/artisan",
+        "migrate",
+      ]
 
   - id: "Running Phpunit"
     name: "docker"

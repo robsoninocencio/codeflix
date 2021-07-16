@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MUIDataTable, { MUIDataTableColumn } from "mui-datatables";
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
+
 import categoryHttp from "../../util/http/category-http";
 import { BadgeNo, BadgeYes } from "../../components/Badge";
 
@@ -39,7 +40,6 @@ type Props = {};
 const Table = (props: Props) => {
   const [data, setData] = useState<Category[]>([]);
   useEffect(() => {
-    // httpVideo.get("categories").then((response) => setData(response.data.data));
     categoryHttp
       .list<{ data: Category[] }>()
       .then(({ data }) => setData(data.data));
