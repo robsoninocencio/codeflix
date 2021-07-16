@@ -6,8 +6,13 @@ import Fab from "@material-ui/core/Fab";
 
 import Table from "./Table";
 import { Page } from "../../components/Page";
+import routes, { MyRouteProps } from "../../routes";
 
 const PageList = () => {
+  const route: MyRouteProps = routes.find(
+    (route) => route.name === "cast_members.create"
+  ) as MyRouteProps;
+
   return (
     <Page title="Listagem de membros de elencos">
       <Box dir={"rtl"} paddingBottom={2}>
@@ -16,7 +21,7 @@ const PageList = () => {
           color="secondary"
           size="small"
           component={Link}
-          to="/cast-members/create"
+          to={route.path as string}
         >
           <AddIcon />
         </Fab>

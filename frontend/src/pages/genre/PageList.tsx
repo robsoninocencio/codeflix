@@ -6,17 +6,22 @@ import Fab from "@material-ui/core/Fab";
 
 import Table from "./Table";
 import { Page } from "../../components/Page";
+import routes, { MyRouteProps } from "../../routes";
 
 const PageList = () => {
+  const route: MyRouteProps = routes.find(
+    (route) => route.name === "genres.create"
+  ) as MyRouteProps;
+
   return (
-    <Page title="Listagem gêneros">
+    <Page title="Listagem Gêneros">
       <Box dir={"rtl"} paddingBottom={2}>
         <Fab
           title="Adicionar gênero"
           color="secondary"
           size="small"
           component={Link}
-          to="/genres/create"
+          to={route.path as string}
         >
           <AddIcon />
         </Fab>

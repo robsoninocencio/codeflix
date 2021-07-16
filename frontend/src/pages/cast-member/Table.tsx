@@ -3,7 +3,7 @@ import MUIDataTable, { MUIDataTableColumn } from "mui-datatables";
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
 
-import { httpVideo } from "../../util/http";
+import genreHttp from "../../util/http/cast-member-http";
 
 const CastMemberTypeMap = {
   1: "Diretor",
@@ -19,7 +19,7 @@ const columnsDefinition: MUIDataTableColumn[] = [
     name: "type",
     label: "Tipo",
     options: {
-      customBodyRender: (value, tableMeta, updateValue) => {
+      customBodyRender(value, tableMeta, updateValue) {
         // return (CastMemberTypeMap as any)[value];
         return CastMemberTypeMap[value]; //  "noImplicitAny": false
       },
@@ -36,13 +36,19 @@ const columnsDefinition: MUIDataTableColumn[] = [
   },
 ];
 
+interface CastMember {
+  id: string;
+  name: string;
+  type: number;
+}
+
 type Props = {};
 const Table = (props: Props) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<CastMember[]>([]);
   useEffect(() => {
-    httpVideo
-      .get("cast_members")
-      .then((response) => setData(response.data.data));
+    genreHttp
+      .list<{ data: CastMember[] }>()
+      .then(({ data }) => setData(data.data));
   }, []);
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
 };

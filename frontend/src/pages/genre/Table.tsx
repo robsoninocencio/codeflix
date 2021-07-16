@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable, { MUIDataTableColumn } from "mui-datatables";
-import { Chip } from "@material-ui/core";
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
 
-import { httpVideo } from "../../util/http";
+import genreHttp from "../../util/http/genre-http";
+import { BadgeNo, BadgeYes } from "../../components/Badge";
 
 const columnsDefinition: MUIDataTableColumn[] = [
   {
@@ -25,11 +25,7 @@ const columnsDefinition: MUIDataTableColumn[] = [
     label: "Ativo?",
     options: {
       customBodyRender(value, tableMeta, updateValue) {
-        return value ? (
-          <Chip label="Sim" color="primary" />
-        ) : (
-          <Chip label="Não" color="secondary" />
-        );
+        return value ? <BadgeYes /> : <BadgeNo />;
       },
     },
   },
@@ -44,11 +40,16 @@ const columnsDefinition: MUIDataTableColumn[] = [
   },
 ];
 
+interface Genre {
+  id: string;
+  name: string;
+}
+
 type Props = {};
 const Table = (props: Props) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Genre[]>([]);
   useEffect(() => {
-    httpVideo.get("genres").then((response) => setData(response.data.data));
+    genreHttp.list<{ data: Genre[] }>().then(({ data }) => setData(data.data));
   }, []);
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
 };
