@@ -50,7 +50,13 @@ const Table = (props: Props) => {
       .list<{ data: CastMember[] }>()
       .then(({ data }) => setData(data.data));
   }, []);
-  return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
+  return (
+    <MUIDataTable
+      title="Listagem de membros de elencos"
+      columns={columnsDefinition}
+      data={data}
+    />
+  );
 };
 
 export default Table;

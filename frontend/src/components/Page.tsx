@@ -18,9 +18,11 @@ export const Page: React.FC<PageProps> = (props) => {
   const classes = useStyles();
   return (
     <Container>
-      <Typography className={classes.title} component="h1" variant="h5">
-        {props.title}
-      </Typography>
+      {props.title && (
+        <Typography className={classes.title} component="h1" variant="h5">
+          {props.title}
+        </Typography>
+      )}
       <Box paddingTop={1}>{props.children}</Box>
     </Container>
   );

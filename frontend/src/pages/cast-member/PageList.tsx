@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
-import Box from "@material-ui/core/Box";
-import Fab from "@material-ui/core/Fab";
+import { Box, Fab } from "@material-ui/core";
 
 import Table from "./Table";
 import { Page } from "../../components/Page";
@@ -14,7 +13,7 @@ const PageList = () => {
   ) as MyRouteProps;
 
   return (
-    <Page title="Listagem de membros de elencos">
+    <Page title="">
       <Box dir={"rtl"} paddingBottom={2}>
         <Fab
           title="Adicionar membro de elenco"
