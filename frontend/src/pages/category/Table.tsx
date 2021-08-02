@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable, { MUIDataTableColumn } from "mui-datatables";
+
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
 
@@ -31,17 +32,19 @@ const columnsDefinition: MUIDataTableColumn[] = [
   },
 ];
 
-interface Category {
+interface ICategory {
   id: string;
   name: string;
+  description: string;
+  is_active: boolean;
 }
 
 type Props = {};
 const Table = (props: Props) => {
-  const [data, setData] = useState<Category[]>([]);
+  const [data, setData] = useState<ICategory[]>([]);
   useEffect(() => {
     categoryHttp
-      .list<{ data: Category[] }>()
+      .list<{ data: ICategory[] }>()
       .then(({ data }) => setData(data.data));
   }, []);
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
