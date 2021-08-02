@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme, Theme } from "@material-ui/core/styles";
 import { green, red } from "@material-ui/core/colors";
 import {
   PaletteOptions,
@@ -27,7 +27,7 @@ const palette: PaletteOptions = {
   },
 };
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   palette,
   overrides: {
     MUIDataTable: {
@@ -39,12 +39,21 @@ const theme = createTheme({
       root: {
         minHeight: "58px",
         backgroundColor: palette!.background!.default,
+        padding: 0,
       },
       icon: {
         color: (palette!.primary as SimplePaletteColorOptions).main,
         "&:hover, &:active, &.focus": {
           color: (palette!.secondary as SimplePaletteColorOptions).dark,
         },
+      },
+      titleText: {
+        color: "#999999",
+        fontSize: "2rem",
+        fontFamily: "Roboto",
+        fontWeight: 400,
+        lineHeight: 1.334,
+        letterSpacing: "0em",
       },
       iconActive: {
         color: (palette!.secondary as SimplePaletteColorOptions).dark,
