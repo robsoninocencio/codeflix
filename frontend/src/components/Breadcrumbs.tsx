@@ -1,14 +1,19 @@
 import React from "react";
+import {
+  Box,
+  Breadcrumbs as MuiBreadcrumbs,
+  Container,
+  createStyles,
+  Link,
+  LinkProps,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import { Location } from "history";
 import { Route } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
 import RouteParser from "route-parser";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import MuiBreadcrumbs from "@material-ui/core/Breadcrumbs";
-import Typography from "@material-ui/core/Typography";
-import Link, { LinkProps } from "@material-ui/core/Link";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
 
 import routes from "../routes";
 

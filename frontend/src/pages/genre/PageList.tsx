@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { Box, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import Box from "@material-ui/core/Box";
-import Fab from "@material-ui/core/Fab";
 
 import Table from "./Table";
 import { Page } from "../../components/Page";

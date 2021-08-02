@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { FormControlLabel, makeStyles, Theme } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Button, { ButtonProps } from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
+import {
+  Box,
+  Button,
+  ButtonProps,
+  Checkbox,
+  FormControlLabel,
+  makeStyles,
+  TextField,
+  Theme,
+} from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { setTimeout } from "timers";
 
@@ -68,9 +73,12 @@ export const Form = () => {
         reset(data.data);
       } catch (error) {
         console.error(error);
-        snackbar.enqueueSnackbar("Não foi possível carregar as informações", {
-          variant: "error",
-        });
+        snackbar.enqueueSnackbar(
+          `Não foi possível carregar a categoria de id = ${id}`,
+          {
+            variant: "error",
+          }
+        );
       } finally {
         setLoading(false);
       }
@@ -111,10 +119,10 @@ export const Form = () => {
       });
       setTimeout(() => {
         event
-          ? id
-            ? history.replace(`/categories/${data.data.id}/edit`)
-            : history.push(`/categories/${data.data.id}/edit`)
-          : history.push("/categories");
+          ? id // Clicou no botão Salvar e continuar editando
+            ? history.replace(`/categories/${data.data.id}/edit`) // Está na tela de edição, então mantém na tela de edição
+            : history.push(`/categories/${data.data.id}/edit`) // Está na tela de Criar, então envia para tela de edição
+          : history.push("/categories"); // Clicou no botão Salvar, então envia para tela de listagem de categorias
       }, 1000);
     } catch (error) {
       console.log(error);
@@ -166,11 +174,7 @@ export const Form = () => {
       />
 
       <Box dir="rtl">
-        <Button
-          {...buttonProps}
-          color="primary"
-          onClick={() => onSubmit(getValues(), null)}
-        >
+        <Button {...buttonProps} onClick={() => onSubmit(getValues(), null)}>
           Salvar
         </Button>
         <Button {...buttonProps} type="submit">

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Theme } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Button, { ButtonProps } from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
+import {
+  Box,
+  Button,
+  ButtonProps,
+  makeStyles,
+  MenuItem,
+  TextField,
+  Theme,
+} from "@material-ui/core";
 
 import genreHttp from "../../util/http/genre-http";
 import categoryHttp from "../../util/http/category-http";
@@ -83,9 +87,12 @@ export const Form = () => {
         }
       } catch (error) {
         console.error(error);
-        snackbar.enqueueSnackbar("Não foi possível carregar as informações", {
-          variant: "error",
-        });
+        snackbar.enqueueSnackbar(
+          `Não foi possível carregar o gênero de id = ${id}`,
+          {
+            variant: "error",
+          }
+        );
       } finally {
         setLoading(false);
       }

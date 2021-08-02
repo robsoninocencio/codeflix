@@ -1,10 +1,13 @@
 import React from "react";
 import logo from "../../static/img/logo.png";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import {
+  AppBar,
+  Button,
+  makeStyles,
+  Toolbar,
+  Typography,
+  Theme,
+} from "@material-ui/core";
 import Menu from "./Menu";
 
 const useStyles = makeStyles((theme: Theme) => ({

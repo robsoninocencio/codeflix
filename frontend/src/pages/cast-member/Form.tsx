@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { FormHelperText, makeStyles, Theme } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Button, { ButtonProps } from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
+import {
+  Box,
+  Button,
+  ButtonProps,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  makeStyles,
+  Radio,
+  RadioGroup,
+  TextField,
+  Theme,
+} from "@material-ui/core";
 import { useSnackbar } from "notistack";
 
 import castMemberHttp from "../../util/http/cast-member-http";
@@ -67,9 +72,12 @@ export const Form = () => {
         reset(data.data);
       } catch (error) {
         console.error(error);
-        snackbar.enqueueSnackbar("Não foi possível carregar as informações", {
-          variant: "error",
-        });
+        snackbar.enqueueSnackbar(
+          `Não foi possível carregar o membro de elenco de id = ${id}`,
+          {
+            variant: "error",
+          }
+        );
       } finally {
         setLoading(false);
       }
