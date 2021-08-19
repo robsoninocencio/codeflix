@@ -49,8 +49,16 @@ type Props = {};
 const Table = (props: Props) => {
   const [data, setData] = useState<Genre[]>([]);
   useEffect(() => {
-    genreHttp.list<{ data: Genre[] }>().then(({ data }) => setData(data.data));
+    (async () => {
+      try {
+        const { data } = await genreHttp.list<{ data: Genre[] }>();
+        setData(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, []);
+
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />;
 };
 

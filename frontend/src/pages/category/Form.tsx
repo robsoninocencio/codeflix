@@ -64,8 +64,7 @@ export const Form = () => {
     if (!id) {
       return;
     }
-
-    async function getCategory() {
+    (async () => {
       setLoading(true);
       try {
         const { data } = await categoryHttp.get(id);
@@ -82,9 +81,7 @@ export const Form = () => {
       } finally {
         setLoading(false);
       }
-    }
-
-    getCategory();
+    })();
   }, [id, reset, snackbar]);
 
   useEffect(() => {

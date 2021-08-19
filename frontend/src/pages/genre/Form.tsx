@@ -67,7 +67,7 @@ export const Form = () => {
   };
 
   useEffect(() => {
-    async function loadData() {
+    (async () => {
       setLoading(true);
       const promises = [categoryHttp.list()];
       if (id) {
@@ -89,15 +89,12 @@ export const Form = () => {
         console.error(error);
         snackbar.enqueueSnackbar(
           `Não foi possível carregar o gênero de id = ${id}`,
-          {
-            variant: "error",
-          }
+          { variant: "error" }
         );
       } finally {
         setLoading(false);
       }
-    }
-    loadData();
+    })();
   }, [id, reset, snackbar]);
 
   useEffect(() => {

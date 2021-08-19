@@ -46,9 +46,14 @@ type Props = {};
 const Table = (props: Props) => {
   const [data, setData] = useState<CastMember[]>([]);
   useEffect(() => {
-    genreHttp
-      .list<{ data: CastMember[] }>()
-      .then(({ data }) => setData(data.data));
+    (async () => {
+      try {
+        const { data } = await genreHttp.list<{ data: CastMember[] }>();
+        setData(data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, []);
   return (
     <MUIDataTable

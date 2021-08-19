@@ -63,8 +63,7 @@ export const Form = () => {
     if (!id) {
       return;
     }
-
-    async function getCastMember() {
+    (async () => {
       setLoading(true);
       try {
         const { data } = await castMemberHttp.get(id);
@@ -81,9 +80,7 @@ export const Form = () => {
       } finally {
         setLoading(false);
       }
-    }
-
-    getCastMember();
+    })();
   }, [id, reset, snackbar]);
 
   useEffect(() => {
