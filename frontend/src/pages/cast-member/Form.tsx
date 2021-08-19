@@ -63,24 +63,28 @@ export const Form = () => {
     if (!id) {
       return;
     }
+    let isSubscribed = true;
     (async () => {
       setLoading(true);
       try {
         const { data } = await castMemberHttp.get(id);
-        setCastMember(data.data);
-        reset(data.data);
+        if (isSubscribed) {
+          setCastMember(data.data);
+          reset(data.data);
+        }
       } catch (error) {
         console.error(error);
         snackbar.enqueueSnackbar(
           `Não foi possível carregar o membro de elenco de id = ${id}`,
-          {
-            variant: "error",
-          }
+          { variant: "error" }
         );
       } finally {
         setLoading(false);
       }
     })();
+    return () => {
+      isSubscribed = false;
+    };
   }, [id, reset, snackbar]);
 
   useEffect(() => {

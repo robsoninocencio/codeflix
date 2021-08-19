@@ -43,14 +43,21 @@ type Props = {};
 const Table = (props: Props) => {
   const [data, setData] = useState<ICategory[]>([]);
   useEffect(() => {
+    let isSubscribed = true;
     (async () => {
       try {
         const { data } = await categoryHttp.list<{ data: ICategory[] }>();
-        setData(data.data);
+        if (isSubscribed) {
+          setData(data.data);
+        }
       } catch (error) {
         console.error(error);
       }
     })();
+
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />;

@@ -67,6 +67,7 @@ export const Form = () => {
   };
 
   useEffect(() => {
+    let isSubscribed = true;
     (async () => {
       setLoading(true);
       const promises = [categoryHttp.list()];
@@ -75,15 +76,17 @@ export const Form = () => {
       }
       try {
         const [categoriesResponse, genreResponse] = await Promise.all(promises);
-        setCategories(categoriesResponse.data.data);
-        if (id) {
-          setGenre(genreResponse.data.data);
-          reset({
-            ...genreResponse.data.data,
-            categories_id: genreResponse.data.data.categories.map(
-              (category) => category.id
-            ),
-          });
+        if (isSubscribed) {
+          setCategories(categoriesResponse.data.data);
+          if (id) {
+            setGenre(genreResponse.data.data);
+            reset({
+              ...genreResponse.data.data,
+              categories_id: genreResponse.data.data.categories.map(
+                (category) => category.id
+              ),
+            });
+          }
         }
       } catch (error) {
         console.error(error);
@@ -95,6 +98,9 @@ export const Form = () => {
         setLoading(false);
       }
     })();
+    return () => {
+      isSubscribed = false;
+    };
   }, [id, reset, snackbar]);
 
   useEffect(() => {

@@ -64,24 +64,28 @@ export const Form = () => {
     if (!id) {
       return;
     }
+    let isSubscribed = true;
     (async () => {
       setLoading(true);
       try {
         const { data } = await categoryHttp.get(id);
-        setCategory(data.data);
-        reset(data.data);
+        if (isSubscribed) {
+          setCategory(data.data);
+          reset(data.data);
+        }
       } catch (error) {
         console.error(error);
         snackbar.enqueueSnackbar(
           `Não foi possível carregar a categoria de id = ${id}`,
-          {
-            variant: "error",
-          }
+          { variant: "error" }
         );
       } finally {
         setLoading(false);
       }
     })();
+    return () => {
+      isSubscribed = false;
+    };
   }, [id, reset, snackbar]);
 
   useEffect(() => {
